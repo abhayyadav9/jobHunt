@@ -16,6 +16,10 @@ const jobSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    experienceLevel:{
+        type:Number,
+        required:true,
+    },
     location: {
         type: String,
         required: true
@@ -25,7 +29,7 @@ const jobSchema = new mongoose.Schema({
         required: true
     },
     position: {
-        type: String,
+        type: Number,
         required: true
     },
     company: {
@@ -35,16 +39,14 @@ const jobSchema = new mongoose.Schema({
     },
     created_by: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Company',
+        ref: 'User',
         required: true
     },
-    applications: [{ // Renamed to applications for clarity
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Application'
-    }]
-},{
-    timestamps:true
-});
-
-// Export the Job model
+    applications: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Application',
+        }
+    ]
+},{timestamps:true});
 export const Job = mongoose.model("Job", jobSchema);

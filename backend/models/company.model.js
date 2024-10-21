@@ -1,32 +1,27 @@
 import mongoose from "mongoose";
 
-// Define the Company schema
 const companySchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
+    name:{
+        type:String,
+        required:true,
+        unique:true
     },
-    description: {
-        type: String
+    description:{
+        type:String, 
     },
-    website: {
-        type: String
+    website:{
+        type:String 
     },
-    location: {
-        type: String
+    location:{
+        type:String 
     },
-    logo: {
-        type: String
+    logo:{
+        type:String // URL to company logo
     },
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+    userId:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+        required:true
     }
-}, {
-    timestamps: true
-});
-
-// Define and export the Company model correctly
-const Company = mongoose.model("Company", companySchema);
-export default Company;
+},{timestamps:true})
+export const Company = mongoose.model("Company", companySchema);

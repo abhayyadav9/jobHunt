@@ -4,6 +4,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDb from "./database/db.js";
 import userRoute from "./routes/user.route.js";
+import companyRoute from "./routes/company.route.js";
+import jobRoute from "./routes/job.route.js";
+import applicationRoute from "./routes/application.route.js"
 
 // Initialize environment variables
 dotenv.config();
@@ -20,6 +23,12 @@ app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173", creden
 
 // Routes
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/company", companyRoute);
+app.use("/api/v1/job", jobRoute);
+app.use("/api/v1/application", applicationRoute);
+
+
+
 
 // Start the server and connect to the database
 const PORT = process.env.PORT || 5000; // Default to 5000 if PORT is undefined
