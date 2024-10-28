@@ -1,27 +1,38 @@
-import React from "react";
-import Navbar from "../shared/Navbar";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import CompaniesTable from "./CompaniesTable";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import Navbar from '../shared/Navbar'
+import { Input } from '../ui/input'
+import { Button } from '../ui/button'
+import CompaniesTable from './CompaniesTable'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setSearchCompanyByText } from '@/redux/companySlice'
+import useGetAllCompanies from '@/hooks/useGetAllCompanies'
 
 const Companies = () => {
-    const navigate = useNavigate()
-  return (
-    <div>
-      <Navbar />
-      <div className=" max-w-6xl max-auto my-10">
-        <div className="flex justify-between  items-center">
-          <Input className="w-fit" placeholder="filter  by name" />
-          <Button onClick={()=>navigate("/admin/companies/create")}>New Company</Button>
-        </div>
+useGetAllCompanies()
+    const [input, setInput] = useState("");
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
+    useEffect(()=>{
+        dispatch(setSearchCompanyByText(input));
+    },[input]);
+    return (
         <div>
-            <CompaniesTable/>
+            <Navbar />
+            <div className='max-w-6xl mx-auto my-10'>
+                <div className='flex items-center justify-between my-5'>
+                    <Input
+                        className="w-fit"
+                        placeholder="Filter by name"
+                        onChange={(e) => setInput(e.target.value)}
+                    />
+                    <Button onClick={() => navigate("/admin/companies/create")}>New Company</Button>
+                </div>
+                <CompaniesTable/>
+            </div>
         </div>
-      </div>
-    </div>
-  );
-};
+    )
+}
 
-export default Companies;
+export default Companies

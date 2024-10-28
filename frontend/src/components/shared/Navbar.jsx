@@ -9,7 +9,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Button } from "../ui/button";
 import { LogOut, LogOutIcon, User2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { USER_API_END_POINT } from "../utils/constant";
 import axios from "axios";
 import { toast } from "sonner";
 import { setLoading, setUser } from "@/redux/authSlice";
@@ -23,8 +22,8 @@ const Navbar = () => {
     try {
       dispatch(setLoading(true)); // Start loading state
 
-      const res = await axios.post(
-        "http://localhost:5000/api/v1/user/logout",
+      const res = await axios.get(
+        "http://localhost:8000/api/v1/user/logout",
 
         { withCredentials: true } // Correctly specifying withCredentials
       );

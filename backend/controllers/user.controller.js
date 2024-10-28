@@ -1,15 +1,12 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import getDataUri from "../middlewares/dataUri.js";
-import cloudinary from "../database/cloudinary.js";
-// import getDataUri from "../utils/datauri.js";
-// import cloudinary from "../utils/cloudinary.js";
+import getDataUri from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js";
 
 export const register = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, password, role } = req.body;
-        console.log(fullname, email, phoneNumber, password, role )
          
         if (!fullname || !email || !phoneNumber || !password || !role) {
             return res.status(400).json({
@@ -52,7 +49,6 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const { email, password, role } = req.body;
-        console.log(email, password, role)
         
         if (!email || !password || !role) {
             return res.status(400).json({
@@ -120,7 +116,7 @@ export const updateProfile = async (req, res) => {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
         
         const file = req.file;
-        // // cloudinary ayega idhar
+        // cloudinary ayega idhar
         const fileUri = getDataUri(file);
         const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
 

@@ -10,8 +10,8 @@ import { toast } from "sonner";
 import useGetSingleJob from "@/hooks/useGetSingleJob";
 import { useDispatch, useSelector } from "react-redux";
 import store from "@/redux/store";
-import { APPLICATION_API_END_POINT, JOB_API } from "./utils/constant";
 import { setSingleJob } from "@/redux/jobSlice";
+import { APPLICATION_API_END_POINT, JOB_API_END_POINT } from "./utils/constant";
 
 const JobDescription = () => {
   const { singleJob } = useSelector((store) => store.job);
@@ -42,7 +42,7 @@ const JobDescription = () => {
   useEffect(() => {
     const fetchSingleJob = async () => {
       try {
-        const res = await axios.get(`${JOB_API}/get/${jobId}`, {
+        const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, {
           withCredentials: true,
         });
         if (res.data.success) {
