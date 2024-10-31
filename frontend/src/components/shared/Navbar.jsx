@@ -7,46 +7,40 @@ import {
 } from "@/components/ui/popover";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Button } from "../ui/button";
-import { LogOut, LogOutIcon, User2 } from "lucide-react";
+import { LogOut, User2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "sonner";
 import { setLoading, setUser } from "@/redux/authSlice";
 
 const Navbar = () => {
-  const { user } = useSelector((store) => store.auth);
-  const { loading } = useSelector((store) => store.auth);
+  const { user, loading } = useSelector((store) => store.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const logoutHandler = async () => {
     try {
-      dispatch(setLoading(true)); // Start loading state
-
-      const res = await axios.get(
-        "http://localhost:8000/api/v1/user/logout",
-
-        { withCredentials: true } // Correctly specifying withCredentials
-      );
+      dispatch(setLoading(true));
+      const res = await axios.get("http://localhost:8000/api/v1/user/logout", {
+        withCredentials: true,
+      });
 
       if (res.data.success) {
         dispatch(setUser(null));
-        // Clear user data from Redux store or local storage here
-
-        navigate("/"); // Redirect to login page
-        toast.success(res.data.message); // Show success message
+        navigate("/");
+        toast.success(res.data.message);
       }
     } catch (error) {
-      // Improved error handling
       const errorMessage =
         error.response?.data?.message || "Something went wrong during logout.";
-      toast.error(errorMessage); // Display the specific error message
+      toast.error(errorMessage);
     } finally {
-      dispatch(setLoading(false)); // Stop loading state
+      dispatch(setLoading(false));
     }
   };
 
   return (
-    <div className="bg-white shadow-sm sticky top-0 z-50">
+    <div className="bg-gray-200  shadow-sm sticky top-0 z-50 shadow-md  bg-gradient-to-b from-purple-40 to-purple-90 ">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">
@@ -159,22 +153,13 @@ const Navbar = () => {
                   )}
                   <div className="flex items-center gap-5 mt-4 cursor-pointer hover:text-gray-900 transition duration-200">
                     <LogOut />
-                    {/* {loading ? (
-                      <Button
-                        className="w-full hover:bg-blue-600 font-semibold py-2 px-4 rounded"
-                        disabled
-                      >
-                        <LogOutIcon className="mr-2 h-4 w-4 animate-spin" />
-                      </Button>
-                    ) : ( */}
                     <Button
                       type="submit"
                       onClick={logoutHandler}
-                      className="w-full bg-[#6A38C2] hover:bg-blue-600 font-semibold py- px-4 rounded"
+                      className="w-full bg-[#6A38C2] hover:bg-blue-600 font-semibold py-2 px-4 rounded"
                     >
                       Logout
                     </Button>
-                    {/* )} */}
                   </div>
                 </div>
               </PopoverContent>

@@ -7,15 +7,15 @@ import { useDispatch } from 'react-redux';
 const filterData = [
     {
         filterType: "Location",
-        array: ["Delhi NCR", "Bangalore", "Hyderabad", "Pune", "Mumbai"]
+        array: ["Delhi NCR", "Bangalore", "Hyderabad", "Pune", "Mumbai"],
     },
     {
         filterType: "Industry",
-        array: ["Frontend Developer", "Backend Developer", "FullStack Developer"]
+        array: ["Frontend Developer", "Backend Developer", "Full Stack Developer"],
     },
     {
         filterType: "Salary",
-        array: ["0-40k", "42-1lakh", "1lakh to 5lakh"]
+        array: ["0-40k", "42-1 lakh", "1 lakh to 5 lakh"],
     },
 ];
 
@@ -32,19 +32,19 @@ export const FilterCard = () => {
     }, [selectedValue, dispatch]);
 
     return (
-        <div className='w-full bg-white p-3 rounded-md'>
-            <h1 className='font-bold text-lg'>Filter Jobs</h1>
-            <hr className='mt-3 h-1' />
+        <div className='w-full max-w-sm bg-white p-5 rounded-md shadow-lg'>
+            <h1 className='font-bold text-lg mb-3'>Filter Jobs</h1>
+            <hr className='mb-3 border-gray-300' />
             <RadioGroup value={selectedValue} onValueChange={changeHandler}>
                 {filterData.map((data, index) => (
-                    <div key={data.filterType}>
-                        <h1 className='font-bold text-lg'>{data.filterType}</h1>
+                    <div key={data.filterType} className='mb-4'>
+                        <h1 className='font-semibold text-md mb-2'>{data.filterType}</h1>
                         {data.array.map((item, idx) => {
                             const itemId = `id${index}-${idx}`;
                             return (
                                 <div className='flex items-center space-x-2 my-2' key={itemId}>
-                                    <RadioGroupItem value={item} id={itemId} />
-                                    <Label htmlFor={itemId}>{item}</Label>
+                                    <RadioGroupItem value={item} id={itemId} className='focus:ring-2 focus:ring-purple-500' />
+                                    <Label htmlFor={itemId} className='text-sm text-gray-700'>{item}</Label>
                                 </div>
                             );
                         })}
@@ -54,4 +54,3 @@ export const FilterCard = () => {
         </div>
     );
 };
-
