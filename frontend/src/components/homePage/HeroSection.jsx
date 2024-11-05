@@ -5,7 +5,7 @@ import { Search } from 'lucide-react';
 const HeroSection = () => {
   return (
     <div className="text-center mt-[-40px] h-screen  bg-gradient-to-b from-purple-100 to-purple-200 py-16 px-4 md:px-0">
-      <div className="flex flex-col items-center gap-8 max-w-3xl mx-auto">
+      <div className="flex flex-col items-center mt-40 md:mt-2 gap-8 max-w-3xl mx-auto">
 
         {/* Badge */}
         <span className="px-5 py-2 rounded-full bg-red-100 text-red-500 font-medium text-sm md:text-base shadow-md">
