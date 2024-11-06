@@ -25,8 +25,11 @@ app.use(cors({
   credentials: true // Allows cookies and credentials to be sent
 }));
 
+
+app.get("/hello",(res,req)=>{
+  res.send("Hello world");
+})
 // Serve static files from React frontend (if in production)
-if (process.env.NODE_ENV === "production") {
   // Serve the static files from the 'frontend/build' directory
   app.use(express.static(path.join(__dirname, "../frontend/build")));
 
@@ -34,7 +37,7 @@ if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
   });
-}
+
 
 // Routes
 app.use("/api/v1/user", userRoute);
