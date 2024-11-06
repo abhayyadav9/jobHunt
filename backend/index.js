@@ -25,19 +25,20 @@ app.use(cors({
   credentials: true // Allows cookies and credentials to be sent
 }));
 
-
-app.get("/hello",(res,req)=>{
+app.get("/hello", (req, res) => {
   res.send("Hello world");
-})
+});
+
+// Get the current directory using import.meta.url
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
 // Serve static files from React frontend (if in production)
-  // Serve the static files from the 'frontend/build' directory
-  app.use(express.static(path.join(__dirname, "../frontend/build")));
+app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-  // Catch-all route to serve index.html for all non-API routes
-  app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
-  });
-
+// Catch-all route to serve index.html for all non-API routes
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
+});
 
 // Routes
 app.use("/api/v1/user", userRoute);
