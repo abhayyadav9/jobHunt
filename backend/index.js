@@ -19,7 +19,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Enable CORS for the frontend (adjust the origin URL if needed)
-app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173", credentials: true }));
+// app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:5173", credentials: true }));
+app.use(cors({
+  origin: true, // Allows all origins
+  credentials: true // Allows cookies and credentials to be sent
+}));
+
 
 // Routes
 app.use("/api/v1/user", userRoute);

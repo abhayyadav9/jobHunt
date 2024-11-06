@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 import { Label } from './ui/label';
 import { useDispatch } from 'react-redux';
-// import { setSearchedQuery } from '@/redux/jobSlice';
+import { setSearchQuery } from '@/redux/jobSlice';
 
 const filterData = [
     {
         filterType: "Location",
-        array: ["Delhi NCR", "Bangalore", "Hyderabad", "Pune", "Mumbai"],
+        array: ["Delhi NCR", "Bangalore", "Birgunj", "Kalaiya", "Mumbai"],
     },
     {
         filterType: "Industry",
-        array: ["Frontend Developer", "Backend Developer", "Full Stack Developer"],
+        array: ["Frontend Developer", "Backend Developer", "Full Stack Developer","Software devloper"],
     },
     {
         filterType: "Salary",
@@ -28,7 +28,7 @@ export const FilterCard = () => {
     };
 
     useEffect(() => {
-        // dispatch(setSearchedQuery(selectedValue));
+        dispatch(setSearchQuery(selectedValue));
     }, [selectedValue, dispatch]);
 
     return (

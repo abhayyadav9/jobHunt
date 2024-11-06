@@ -9,8 +9,11 @@ import {
   TableRow,
 } from "./ui/table";
 import { Badge } from "./ui/badge";
+import { useSelector } from "react-redux";
 
 const AppliedJobTable = () => {
+  const { allAppliedJobs } = useSelector((store) => store.job);
+
   return (
     <div className="max-w-7xl mx-auto p-5 bg-white shadow-lg rounded-lg">
       <Table>
@@ -24,43 +27,30 @@ const AppliedJobTable = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {[
-            { date: "17-07-2024", role: "Frontend Developer", company: "Google", status: "Selected" },
-            { date: "18-07-2024", role: "Backend Developer", company: "Amazon", status: "Interview" },
-            { date: "19-07-2024", role: "Fullstack Developer", company: "Microsoft", status: "Rejected" },
-            { date: "20-07-2024", role: "UI/UX Designer", company: "Apple", status: "Pending" },
-          ].map((job, index) => (
-            <TableRow key={index} className="hover:bg-gray-100 transition duration-300">
-              <TableCell>{job.date}</TableCell>
-              <TableCell>{job.role}</TableCell>
-              <TableCell>{job.company}</TableCell>
-              <TableCell className="text-right">
-                <Badge className={getBadgeClass(job.status)}>
-                  {job.status}
-                </Badge>
-              </TableCell>
-            </TableRow>
-          ))}
+          {allAppliedJobs.length <= 0 ? (
+            <span>You Dont applied job yet</span>
+          ) : (
+            allAppliedJobs.map((appliedJob) => (
+              <TableRow
+                key={appliedJob?._id}
+                className="hover:bg-gray-100 transition duration-300"
+              >
+                <TableCell>{appliedJob?.createdAt.split("T")[0]}</TableCell>
+                <TableCell>{appliedJob?.job.title}</TableCell>
+                <TableCell>{appliedJob?.job.company.name}</TableCell>
+                <TableCell className="text-right">
+                  <Badge className={` ${appliedJob?.status ==="accepted"?"bg-green-400 text-black":"bg-red-400 text-black"} p-1`}>
+                    {appliedJob?.status}
+                  </Badge>
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
     </div>
   );
 };
 
-// Function to get the badge class based on job status
-const getBadgeClass = (status) => {
-  switch (status) {
-    case "Selected":
-      return "bg-green-500 text-white";
-    case "Interview":
-      return "bg-blue-500 text-white";
-    case "Rejected":
-      return "bg-red-500 text-white";
-    case "Pending":
-      return "bg-yellow-500 text-white";
-    default:
-      return "bg-gray-400 text-white";
-  }
-};
 
 export default AppliedJobTable;

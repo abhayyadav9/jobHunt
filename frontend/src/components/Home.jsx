@@ -12,6 +12,7 @@ const Home = () => {
   // Fetch all jobs using a custom hook
   useGetAllJobs();
 
+
   const { user } = useSelector((store) => store.auth);
   const navigate = useNavigate();
 

@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '../ui/button';
 import { Search } from 'lucide-react';
+import { useDispatch } from 'react-redux';
+import { setSearchQuery } from '@/redux/jobSlice';
+import { useNavigate } from 'react-router-dom';
+import useGetAllJobs from '@/hooks/useGetAllJobs';
 
 const HeroSection = () => {
+  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useGetAllJobs()
+
+  const searchJobHandler = () => {
+      dispatch(setSearchQuery(query));
+      navigate("/browse");
+  }
   return (
     <div className="text-center mt-[-40px] h-screen  bg-gradient-to-b from-purple-100 to-purple-200 py-16 px-4 md:px-0">
       <div className="flex flex-col items-center mt-40 md:mt-2 gap-8 max-w-3xl mx-auto">
@@ -26,10 +39,13 @@ const HeroSection = () => {
         <div className="flex w-full max-w-lg shadow-lg border border-gray-300 rounded-full overflow-hidden items-center bg-white">
           <input
             type="text"
+            onChange={(e)=>setQuery(e.target.value)}
             placeholder="Search for jobs by title or keyword"
             className="flex-grow p-3 text-gray-600 text-sm md:text-base outline-none border-none"
           />
-          <Button className="bg-[#6A38C2] text-white p-3 h-12 w-14 rounded-r-full hover:bg-[#542C8B] transition-all duration-200 ease-in-out">
+          <Button 
+          onClick={searchJobHandler}
+          className="bg-[#6A38C2] text-white p-3 h-12 w-14 rounded-r-full hover:bg-[#542C8B] transition-all duration-200 ease-in-out">
             <Search className="h-5 w-5 " />
           </Button>
         </div>
