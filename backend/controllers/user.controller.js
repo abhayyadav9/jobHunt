@@ -111,6 +111,10 @@ export const logout = async (req, res) => {
         console.log(error);
     }
 }
+
+
+
+
 export const updateProfile = async (req, res) => {
     try {
         const { fullname, email, phoneNumber, bio, skills } = req.body;

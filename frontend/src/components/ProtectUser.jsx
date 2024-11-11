@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedUser = ({ children }) => {
     const { user } = useSelector((store) => store.auth);
     const navigate = useNavigate();
 
@@ -20,4 +20,4 @@ const ProtectedRoute = ({ children }) => {
     return <>{children}</>;
 };
 
-export default ProtectedRoute;
+export default ProtectedUser;

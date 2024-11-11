@@ -1,54 +1,40 @@
 import express from "express";
-import path from "path";
-import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import connectDb from "./database/db.js";
+import dotenv from "dotenv";
+import connectDB from "./utils/db.js";
 import userRoute from "./routes/user.route.js";
 import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 
-// Initialize environment variables
-dotenv.config();
+dotenv.config({});
 
 const app = express();
 
-// Middleware setup
-app.use(express.urlencoded({ extended: true }));
+// middleware
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
+const corsOptions = {
+    origin:'http://localhost:5173',
+    credentials:true
+}
 
-// Enable CORS for the frontend (adjust the origin URL if needed)
-app.use(cors({
-  origin: true, // Allows all origins
-  credentials: true // Allows cookies and credentials to be sent
-}));
+app.use(cors(corsOptions));
 
-app.get("/hello", (req, res) => {
-  res.send("Hello world");
-});
+const PORT = process.env.PORT || 3000;
 
-// Get the current directory using import.meta.url
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-// Serve static files from React frontend (if in production)
-app.use(express.static(path.join(__dirname, "../frontend/build")));
-
-// Catch-all route to serve index.html for all non-API routes
-app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"));
-});
-
-// Routes
+// api's
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
 
-// Start the server and connect to the database
-const PORT = process.env.PORT || 5000; // Default to 5000 if PORT is undefined
-app.listen(PORT, () => {
-  connectDb(); // Ensure database connection
-  console.log(`Server is running at port ${PORT}`);
-});
+
+
+app.listen(PORT,()=>{
+    connectDB();
+    console.log(`Server running at port ${PORT}`);
+})

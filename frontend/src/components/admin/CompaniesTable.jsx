@@ -5,6 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { Edit2, MoreHorizontal } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import useGetAllCompanies from '@/hooks/useGetAllCompanies';
 
 const CompaniesTable = () => {
     const { companies, searchCompanyByText } = useSelector(store => store.company);

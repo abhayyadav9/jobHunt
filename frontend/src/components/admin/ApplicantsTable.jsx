@@ -60,13 +60,13 @@ const ApplicantsTable = () => {
           </TableHeader>
           <TableBody className="bg-red-40">
             {applicants &&
-              applicants.applications.map((item) => (
+              applicants?.applications?.map((item) => (
                 <TableRow key={item._id} className="border-b hover:bg-gray-100">
                   <TableCell className="px-4 py-2 text-gray-700">
-                    {item.applicant.fullname}
+                    {item?.applicant?.fullname}
                   </TableCell>
                   <TableCell className="px-4 py-2 text-gray-700">
-                    {item.applicant.email}
+                    {item?.applicant?.email}
                   </TableCell>
                   <TableCell className="px-4 py-2 text-gray-700">
                     {item.applicant.phoneNumber}

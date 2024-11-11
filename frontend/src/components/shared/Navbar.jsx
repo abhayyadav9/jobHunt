@@ -21,7 +21,7 @@ const Navbar = () => {
   const logoutHandler = async () => {
     try {
       dispatch(setLoading(true));
-      const res = await axios.get("https://jobhunt-cyqb.onrender.com/api/v1/user/logout", {
+      const res = await axios.post("http://localhost:8000/api/v1/user/logout", {
         withCredentials: true,
       });
 
@@ -40,7 +40,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-gray-200  shadow-sm sticky top-0 z-50 shadow-md  bg-gradient-to-b from-purple-40 to-purple-90 ">
+    <div className="bg-gray-200 w-full  shadow-sm sticky top-0 z-50 shadow-md  bg-gradient-to-b from-purple-40 to-purple-90 ">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-800">
